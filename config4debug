@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Configure for debugging. mainly, turns 
+# off optimization and sets -g 
+# Pass the argument "debug" if you want increased
+# debug output and features. This will send
+# a lot of debug output to the screen or log
+# at runtime. 
+#
+# To just enable gdb debugging
+
+# ./config4debug
+#
+# To enable gdb debugging and set -DULPPK_DEBUG
+# for additional debug logging and features:
+#
+# ./config4debug logging
+#
+
+if [ $# -eq 0 ]; then
+	echo "Enabling gdb debugging"
+	env CFLAGS="-g -O0 -I." ./configure
+elif [ $1 == "logging" ]; then
+	echo "Enabling gdb debugging and debug logging"
+	env CFLAGS="-g -O0 -I. -DULPPK_DEBUG" ./configure
+fi
+

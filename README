@@ -1,0 +1,84 @@
+PREREQUISITIES
+
+At this point, ulppk2 must be properly 
+installed. Just having the development
+tree isn't good enough ... the libraries
+must be installed by using:
+
+sudo make install
+
+
+Future versions will provide more
+sophisticated configuration so we can
+compile the demos from the development
+source tree. 
+
+BUILDING FOR INSTALLATION w/o debugging
+
+./configure
+make
+sudo make install
+
+BUILDING FOR DEBUGGING
+
+config4debug is a shell script that wraps the configure script.
+It sets CFLAGS to enable gdb debugging and turn off optimization.
+(gdb gets weird when optimization is enabled.) If the argument "logging"
+is provided, the config4debug script also sets the define 
+ULPPK_DEBUG so that additional diagnostics are printed. 
+
+runconfigure.sh is deprecated. 
+
+To enable gdb debugging
+
+./config4debug 
+make 
+sudo make install 
+
+To enable gdb debugging and logging
+
+./config4debug logging
+make 
+sudo make install 
+
+
+
+DEBUGGING
+
+cd into the src directory and use libtool to run the debugger.
+For example, to debug the demo server:
+
+cd src
+libtool --mode=execute gdb demoserver
+
+
+SYSLOG setup
+
+On Ubuntu-like systems using rsyslog, system logging setups for the demo
+server can be set up simply by copying doc/ulppkdemo.conf to
+/etc/rsyslog.d and restarting rsyslog
+
+cp ulppkdemo.conf /etc/rsyslog.d
+service rsyslog restart
+
+Other configurations/system logger configurations will have to
+handled differently. In this case, the contents of doc/ulppkdemo.conf 
+provide a usable example. 
+
+DATA DIRECTORIES
+
+Installation of ulppk2-demo will create directories under
+/var/ulppk2-demo for the storage of various files. It will also
+copy the settings files to /usr/local/etc
+
+Note that these data directories must either be created by hand
+or by the make install target. In either case, root privilege
+will be required to create the directories.
+
+INSTALLATION
+
+sudo make install
+
+Note: This will create the data directories mentioned above.
+
+
